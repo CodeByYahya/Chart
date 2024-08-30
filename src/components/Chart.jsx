@@ -1,4 +1,4 @@
-import { Line } from "react-chartjs-2";
+import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,12 +8,11 @@ import {
   Title,
   Tooltip,
   Legend,
-} from "chart.js";
-import { GiProgression } from "react-icons/gi";
-import { BsGraphUpArrow } from "react-icons/bs";
-
-import ChartDataLabels from "chartjs-plugin-datalabels";
-import { FaApple, FaPercent } from "react-icons/fa";
+  Filler, // Import Filler for area fills
+} from 'chart.js';
+import { FaApple, FaPercent } from 'react-icons/fa';
+import { GiProgression } from 'react-icons/gi';
+import { BsGraphUpArrow } from 'react-icons/bs';
 
 // Register the necessary components
 ChartJS.register(
@@ -24,70 +23,74 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  ChartDataLabels // Register the datalabels plugin
+  Filler // Register the Filler plugin
 );
 
 const LineChart = () => {
-  // Chart data
   const data = {
     labels: ["January", "February", "March", "April", "May", "June", "July"],
     datasets: [
       {
-        tension: 0.4,
-        data: [33, 53, 85, 41, 44, 65, 60],
-        borderColor: "black", // Line color
-        backgroundColor: "rgba(0, 0, 0, 0.2)", // Background color
-        pointRadius: 8,
-        pointBorderColor: "black", // Point border color
-        pointBackgroundColor: "black", // Point fill color
-        fill: true,
-        datalabels: {
-          color: "black", // Color of the data labels
-          display: true,
-          align: "top", // Position the labels on top of the points
-          anchor: "end",
-          font: {
-            size: 12, // Font size of the data labels
-            weight: "bold",
-          },
-        },
+        // label: 'Sales',
+        data: [33, 53, 50, 80, 60, 70, 84],
+        borderColor: "black",
+        backgroundColor: "rgba(0, 0, 0, 0.2)",
+        pointRadius: 4,
+        pointBorderColor: "black",
+        pointBackgroundColor: "black",
+        fill: false,
+        tension: 0.4, // To make the line smooth
+      },
+      {
+        // label: 'Range Upper Bound',
+        data: [null, null, null, 80, 85, 80, 84],
+        borderColor: "rgba(0, 123, 255, 0.5)",
+        backgroundColor: "rgba(0, 123, 255, 0.3)",
+        pointRadius: 0,
+        fill: '+1', // Fill the area between this dataset and the next one
+        tension: 0.4, // To make the line smooth
+      },
+      {
+        // label: 'Range Lower Bound',
+        data: [null, null, null, 80, 50, 55, 84],
+        borderColor: "rgba(0, 123, 255, 0.5)",
+        backgroundColor: "rgba(0, 123, 255, 0.3)",
+        pointRadius: 0,
+        fill: '-1', // Fill the area between this dataset and the previous one
+        tension: 0.4, // To make the line smooth
       },
     ],
   };
 
-  // Chart options
   const options = {
     responsive: true,
-    maintainAspectRatio: false, // Allow the chart to stretch to fill the container
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false, // Hide the legend
       },
       tooltip: {
         callbacks: {
-          label: function () {
-            return ""; // Remove the label from the tooltip
+          label: function (tooltipItem) {
+            return tooltipItem.dataset.label.includes('Range') ? '' : tooltipItem.formattedValue;
           },
         },
-      },
-      datalabels: {
-        display: false, // Disable datalabels globally (use dataset-specific config instead)
       },
     },
     scales: {
       x: {
         grid: {
-          display: false, 
+          display: false,
         },
         ticks: {
-          color: "black", 
+          color: "black",
           font: {
-            size: 14, 
+            size: 14,
           },
         },
         title: {
           display: true,
-          color: "black", 
+          color: "black",
           font: {
             size: 16,
           },
@@ -95,19 +98,20 @@ const LineChart = () => {
       },
       y: {
         grid: {
-          display: false, // Disable grid lines on y-axis
+          display: true,
+          color: "rgba(0, 0, 0, 0.1)",
         },
         ticks: {
-          color: "black", // Font color for y-axis labels
+          color: "black",
           font: {
-            size: 14, // Font size for y-axis labels
+            size: 14,
           },
         },
         title: {
           display: true,
-          color: "black", // Font color for y-axis title
+          color: "black",
           font: {
-            size: 16, // Font size for y-axis title
+            size: 16,
           },
         },
       },
