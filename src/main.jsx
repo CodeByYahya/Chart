@@ -6,7 +6,6 @@ import './index.css'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <div className='main flex'>
-      
     <App />
     </div>
   </StrictMode>,

@@ -37,7 +37,7 @@ const LineChart = () => {
         data: [33, 53, 85, 41, 44, 65, 60],
         borderColor: "black", // Line color
         backgroundColor: "rgba(0, 0, 0, 0.2)", // Background color
-        pointRadius: 8, // Increase the size of the points
+        pointRadius: 8,
         pointBorderColor: "black", // Point border color
         pointBackgroundColor: "black", // Point fill color
         fill: true,
@@ -77,7 +77,7 @@ const LineChart = () => {
     scales: {
       x: {
         grid: {
-          display: true, 
+          display: false, 
         },
         ticks: {
           color: "black", 
